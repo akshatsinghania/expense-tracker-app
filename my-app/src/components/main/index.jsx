@@ -14,7 +14,20 @@ export default function Main() {
     setTotalIncome,
   } = useContext(GlobalContext);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    let income = 0;
+    let expense = 0;
+
+    allTransactions.forEach((item) => {
+      if (item.type == "income") {
+        income = income + parseFloat(item.amount);
+      } else {
+        expense = expense + parseFloat(item.amount);
+      }
+    });
+    setTotalExpense(expense);
+    setTotalIncome(income);
+  }, [allTransactions]);
 
   return (
     <Flex textAlign={"center"} flexDirection={"column"} pr={"5"} pl={"5"}>
@@ -31,7 +44,12 @@ export default function Main() {
           </Button>
         </Flex>
       </Flex>
-      <Summary isOpen={isOpen} onClose={onClose} />
+      <Summary
+        totalExpense={totalExpense}
+        totalIncome={totalIncome}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
       <Flex
         w="full"
         alignItems={"flex-start"}
