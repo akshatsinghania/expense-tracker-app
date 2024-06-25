@@ -1,10 +1,20 @@
 import { Button, Flex, Heading, useDisclosure } from "@chakra-ui/react";
 import Summary from "../summary";
 import ExpenseView from "../expense-view";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { GlobalContext } from "../../context";
 
 export default function Main() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    totalExpense,
+    allTransactions,
+    setTotalExpense,
+    totalIncome,
+    setTotalIncome,
+  } = useContext(GlobalContext);
+
+  useEffect(() => {}, []);
 
   return (
     <Flex textAlign={"center"} flexDirection={"column"} pr={"5"} pl={"5"}>

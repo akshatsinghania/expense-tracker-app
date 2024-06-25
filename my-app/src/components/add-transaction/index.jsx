@@ -18,7 +18,8 @@ import { useContext } from "react";
 import { GlobalContext } from "../../context";
 
 export default function TransactionForm({ onClose, isOpen }) {
-  const { formData, setFormData, value, setValue } = useContext(GlobalContext);
+  const { formData, setFormData, value, setValue, handleFormSubmit } =
+    useContext(GlobalContext);
 
   function handleFormChange(event) {
     setFormData({
@@ -26,9 +27,15 @@ export default function TransactionForm({ onClose, isOpen }) {
       [event.target.name]: event.target.value,
     });
   }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleFormSubmit(formData);
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Add New Transaction</ModalHeader>
@@ -60,6 +67,7 @@ export default function TransactionForm({ onClose, isOpen }) {
                 value="income"
                 colorScheme="blue"
                 name="type"
+                onChange={handleFormChange}
               >
                 Income
               </Radio>
@@ -68,6 +76,7 @@ export default function TransactionForm({ onClose, isOpen }) {
                 value="expense"
                 colorScheme="red"
                 name="type"
+                onChange={handleFormChange}
               >
                 Expense
               </Radio>
@@ -78,7 +87,9 @@ export default function TransactionForm({ onClose, isOpen }) {
             <Button mr={"4"} onClick={onClose}>
               Cancel
             </Button>
-            <Button>Add</Button>
+            <Button onClick={onClose} type="submit">
+              Add
+            </Button>
           </ModalFooter>
         </ModalContent>
       </form>
