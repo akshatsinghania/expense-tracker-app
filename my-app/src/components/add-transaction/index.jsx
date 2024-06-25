@@ -1,18 +1,25 @@
 import {
+  Button,
   FormControl,
   FormLabel,
+  Input,
+  Modal,
   ModalBody,
   ModalCloseButton,
+  ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Radio,
+  RadioGroup,
 } from "@chakra-ui/react";
 
-export default function TransactionForm() {
+export default function TransactionForm({ onClose, isOpen }) {
   return (
-    <Model>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <form>
         <ModalOverlay />
-        <ModelContent>
+        <ModalContent>
           <ModalHeader>Add New Transaction</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -33,9 +40,25 @@ export default function TransactionForm() {
                 type="number"
               />
             </FormControl>
+
+            <RadioGroup mt="5">
+              <Radio value="income" colorScheme="blue" name="type">
+                Income
+              </Radio>
+              <Radio value="expense" colorScheme="red" name="type">
+                Expense
+              </Radio>
+            </RadioGroup>
           </ModalBody>
-        </ModelContent>
+
+          <ModalFooter>
+            <Button mr={"4"} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button>Add</Button>
+          </ModalFooter>
+        </ModalContent>
       </form>
-    </Model>
+    </Modal>
   );
 }
