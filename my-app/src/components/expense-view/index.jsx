@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 export default function ExpenseView({ type, data }) {
   return (
@@ -28,7 +28,18 @@ export default function ExpenseView({ type, data }) {
             justifyContent={"space-between"}
             alignItems={"center"}
             border={"1px solid"}
-          ></Flex>
+            borderColor={type === "expense" ? "red.100" : "blue.100"}
+            p={"4"}
+            borderRadius={"8"}
+          >
+            <Flex alignItems={"center"} justifyContent={"center"}>
+              <Text ml="3" fontWeight="bold" color="gray.600">
+                {item.description}
+              </Text>
+            </Flex>
+
+            <Text>${item.amount}</Text>
+          </Flex>
         );
       })}
     </Box>
